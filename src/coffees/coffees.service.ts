@@ -17,11 +17,13 @@ export class CoffeesService {
     private readonly flavorsRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
     @Inject(COFFEE_BRANDS) private coffeeBrands: string[],
-  ) {}
+  ) {
+    console.log('brands', this.coffeeBrands);
+  }
 
   async findAll(paginationDto: PaginationQueryDto): Promise<Coffee[]> {
     const { limit, offset } = paginationDto;
-    console.log('brands', this.coffeeBrands);
+
     return await this.coffeeRepository.find({
       relations: {
         flavors: true,
