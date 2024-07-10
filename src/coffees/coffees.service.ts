@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { Coffee } from './entities/coffees.entity';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { DataSource, Repository } from 'typeorm';
@@ -18,7 +18,7 @@ export class CoffeesService {
     private readonly dataSource: DataSource,
     @Inject(COFFEE_BRANDS) private coffeeBrands: string[],
   ) {
-    console.log('brands', this.coffeeBrands);
+    console.log('CoffeeService instanciated');
   }
 
   async findAll(paginationDto: PaginationQueryDto): Promise<Coffee[]> {
