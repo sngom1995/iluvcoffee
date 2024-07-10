@@ -7,6 +7,7 @@ import { Flavor } from './entities/flavor.entity';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { Event } from '../events/entities/event.entity';
 import { COFFEE_BRANDS } from './constants/coffee.constant';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CoffeesService {
@@ -17,13 +18,14 @@ export class CoffeesService {
     private readonly flavorsRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
     @Inject(COFFEE_BRANDS) private coffeeBrands: string[],
+    private readonly configService: ConfigService,
   ) {
     console.log('CoffeeService instanciated');
   }
 
   async findAll(paginationDto: PaginationQueryDto): Promise<Coffee[]> {
     const { limit, offset } = paginationDto;
-
+    console.log(this.configService.get('database.host'));
     return await this.coffeeRepository.find({
       relations: {
         flavors: true,
