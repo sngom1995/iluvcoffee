@@ -3,16 +3,13 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
   Param,
   Patch,
   Post,
   Query,
-  Res,
 } from '@nestjs/common';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
-import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @Controller('coffees')
@@ -25,7 +22,7 @@ export class CoffeesController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return await this.coffeesService.findOne(parseInt(id));
+    return await this.coffeesService.findOne(id);
   }
 
   @Post()
@@ -35,11 +32,11 @@ export class CoffeesController {
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    await this.coffeesService.remove(+id);
+    await this.coffeesService.delete(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body: CreateCoffeeDto) {
-    return this.coffeesService.update(+id, body);
+    return this.coffeesService.update(id, body);
   }
 }
