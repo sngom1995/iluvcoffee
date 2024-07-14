@@ -52,7 +52,7 @@ export class CoffeesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: CreateCoffeeDto) {
-    return this.coffeesService.update(+id, body);
+  async update(@Param('id') id: string, @Body() body: CreateCoffeeDto) {
+    return await this.coffeesService.update(+id, body);
   }
 }
